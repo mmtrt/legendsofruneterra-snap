@@ -1,0 +1,121 @@
+name: legendsofruneterra
+version: '1.0'
+summary: Choose your champions, make your move, and be legendary in the League of Legends strategy card game.
+description: |
+  Legends of Runeterra is a free-to-play digital collectible card game developed and published by Riot Games. Runeterra was released in open beta for Microsoft Windows on January 24, 2020. The game exists in the same universe as League of Legends, a multiplayer online battle arena game by Riot.
+
+grade: stable
+confinement: strict
+architectures:
+  - build-on: amd64
+    run-on: amd64
+base: core18
+
+plugs:
+  wine-runtime:
+    interface: content
+    target: $SNAP/wine-runtime
+    default-provider: wine-platform-runtime
+  wine-5-staging:
+    interface: content
+    target: $SNAP/wine-platform
+    default-provider: wine-platform-5-staging
+  gtk-3-themes:
+    default-provider: gtk-common-themes
+    interface: content
+    target: $SNAP/data-dir/themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+
+apps:
+  legendsofruneterra:
+    command: |
+      bin/sommelier "$(find $WINEPREFIX/ -type f -name 'RiotClientServices.exe' 2>/dev/null)"
+    environment:
+      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
+      INSTALL_URL: "https://bacon.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.exe"
+      TRICKS: "d3dx9"
+      LC_ALL: "C.UTF-8"
+    plugs:
+      - desktop
+      - desktop-legacy
+      - hardware-observe
+      - home
+      - joystick
+      - network
+      - network-bind
+      - opengl
+      - process-control
+      - pulseaudio
+      - wayland
+      - x11
+      - gtk-3-themes
+      - icon-themes
+      - wine-runtime
+      - wine-5-staging
+  wineboot:
+    command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/wineboot
+    environment:
+      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
+    plugs:
+      - desktop
+      - desktop-legacy
+      - pulseaudio
+      - wayland
+      - x11
+  winecfg:
+    command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/winecfg
+    environment:
+      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
+    plugs:
+      - desktop
+      - desktop-legacy
+      - pulseaudio
+      - wayland
+      - x11
+  wineserver:
+    command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/wineserver
+    environment:
+      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
+    plugs:
+      - desktop
+      - desktop-legacy
+      - pulseaudio
+      - wayland
+      - x11
+  winetricks:
+    command: bin/sommelier $SNAP/wine-runtime/bin/winetricks prefix="$WINEPREFIX"
+    environment:
+      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
+      LC_ALL: "C.UTF-8"
+    plugs:
+      - desktop
+      - desktop-legacy
+      - network
+      - pulseaudio
+      - wayland
+      - x11
+  regedit:
+    command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/regedit
+    environment:
+      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
+    plugs:
+      - desktop
+      - desktop-legacy
+      - pulseaudio
+      - wayland
+      - x11
+
+parts:
+  legendsofruneterra:
+    plugin: dump
+    source: ./snap/local/scripts
+    override-build: |
+      snapcraftctl build
+      set -ex
+      mkdir -p $SNAPCRAFT_PART_INSTALL/wine-runtime
+      mkdir -p $SNAPCRAFT_PART_INSTALL/wine-platform
+    organize:
+      'sommelier': bin/
