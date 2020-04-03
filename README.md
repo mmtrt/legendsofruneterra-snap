@@ -11,6 +11,12 @@ distributions.</p>
 
     snap install --edge legendsofruneterra
 
+## Issues
+
+* In-game disconnection. *(need fixes in wine)*
+
+* Game sometimes take few relaunches to start. *(looks similar to league client issue)*
+
 Support me by donating via [Pateron](https://www.patreon.com/mmtrt)
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
