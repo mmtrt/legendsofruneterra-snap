@@ -48,7 +48,7 @@ apps:
       - network-bind
       - opengl
       - process-control
-      - pulseaudio
+      - audio-playback
       - wayland
       - x11
       - gtk-3-themes
@@ -62,7 +62,7 @@ apps:
     plugs:
       - desktop
       - desktop-legacy
-      - pulseaudio
+      - audio-playback
       - wayland
       - x11
   winecfg:
@@ -72,7 +72,7 @@ apps:
     plugs:
       - desktop
       - desktop-legacy
-      - pulseaudio
+      - audio-playback
       - wayland
       - x11
   wineserver:
@@ -82,7 +82,7 @@ apps:
     plugs:
       - desktop
       - desktop-legacy
-      - pulseaudio
+      - audio-playback
       - wayland
       - x11
   winetricks:
@@ -94,7 +94,7 @@ apps:
       - desktop
       - desktop-legacy
       - network
-      - pulseaudio
+      - audio-playback
       - wayland
       - x11
   regedit:
@@ -104,7 +104,7 @@ apps:
     plugs:
       - desktop
       - desktop-legacy
-      - pulseaudio
+      - audio-playback
       - wayland
       - x11
 
