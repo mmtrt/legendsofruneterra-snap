@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Legends of Runeterra
+Comment=
+Exec=legendsofruneterra.legendsofruneterranv
+Icon=${SNAP}/meta/gui/legendsofruneterra.png
+Categories=Game;
+Terminal=false
+StartupNotify=true
+StartupWMClass=LoR.exe
+Keywords=game

@@ -9,7 +9,7 @@ confinement: strict
 architectures:
   - build-on: amd64
     run-on: amd64
-base: core18
+base: core20
 
 plugs:
   wine-runtime:
@@ -29,15 +29,38 @@ plugs:
     target: $SNAP/data-dir/icons
     default-provider: gtk-common-themes
 
+environment:
+  WINEPREFIX: "$SNAP_USER_COMMON/.wine"
+  INSTALL_URL: "https://bacon.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.exe"
+  TRICKS: "d3dx9"
+  LC_ALL: "C.UTF-8"
+
 apps:
   legendsofruneterra:
-    command: |
-      bin/sommelier "$(find $WINEPREFIX/ -type f -name 'RiotClientServices.exe' 2>/dev/null)"
+    command: bin/wrapper
+    plugs:
+      - desktop
+      - desktop-legacy
+      - hardware-observe
+      - home
+      - joystick
+      - network
+      - network-bind
+      - opengl
+      - process-control
+      - audio-playback
+      - wayland
+      - x11
+      - gtk-3-themes
+      - icon-themes
+      - wine-runtime
+      - wine-5-staging
+  legendsofruneterranv:
+    command: bin/wrapper
     environment:
-      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
-      INSTALL_URL: "https://bacon.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.exe"
-      TRICKS: "d3dx9"
-      LC_ALL: "C.UTF-8"
+      __NV_PRIME_RENDER_OFFLOAD: "1"
+      __GLX_VENDOR_LIBRARY_NAME: "nvidia"
+      __VK_LAYER_NV_optimus: "NVIDIA_only"
     plugs:
       - desktop
       - desktop-legacy
@@ -57,8 +80,6 @@ apps:
       - wine-5-staging
   wineboot:
     command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/wineboot
-    environment:
-      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
     plugs:
       - desktop
       - desktop-legacy
@@ -67,8 +88,6 @@ apps:
       - x11
   winecfg:
     command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/winecfg
-    environment:
-      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
     plugs:
       - desktop
       - desktop-legacy
@@ -77,8 +96,6 @@ apps:
       - x11
   wineserver:
     command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/wineserver
-    environment:
-      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
     plugs:
       - desktop
       - desktop-legacy
@@ -87,9 +104,6 @@ apps:
       - x11
   winetricks:
     command: bin/sommelier $SNAP/wine-runtime/bin/winetricks
-    environment:
-      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
-      LC_ALL: "C.UTF-8"
     plugs:
       - desktop
       - desktop-legacy
@@ -99,8 +113,6 @@ apps:
       - x11
   regedit:
     command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/regedit
-    environment:
-      WINEPREFIX: "$SNAP_USER_COMMON/.wine"
     plugs:
       - desktop
       - desktop-legacy
@@ -119,3 +131,4 @@ parts:
       mkdir -p $SNAPCRAFT_PART_INSTALL/wine-platform
     organize:
       'sommelier': bin/
+      'wrapper': bin/

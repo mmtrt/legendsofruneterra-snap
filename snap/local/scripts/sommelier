@@ -473,7 +473,7 @@ fi
 # Stop wine from updating $WINEPREFIX automatically
 if [ -f "${WINEPREFIX}/.update-timestamp" ]; then
   chkstmp=$(grep disable "${WINEPREFIX}/.update-timestamp" | wc -l)
-  if [ $chkstmp -eq 0 ]; then
+  if [[ $chkstmp -eq 0 ]]; then
     echo "disable" > "${WINEPREFIX}/.update-timestamp"
   fi
 fi
@@ -494,6 +494,7 @@ EOF
   # Apply dlloverride reg
   env WINEARCH="${WINEARCH}" WINEPREFIX="${WINEPREFIX}" "${WINELOADER}" start regedit ${progReg}
   sleep 1
+  sed -i '/native,builtin/d' $WINEPREFIX/user.reg
   # Opt out of winetricks metrics - we ninja this to avoid dialogs
   if [ ! -f "${XDG_CACHE_HOME}/winetricks/track_usage" ]; then
     ensure_dir_exists "${XDG_CACHE_HOME}/winetricks"
@@ -595,7 +596,7 @@ fi
 if [[ ${WINE_EXE} = *"winecfg"* ]] || [[ ${WINE_EXE} = *"wineboot"* ]] || [[ ${WINE_EXE} = *"winetricks"* ]] || [[ ${WINE_EXE} = *"regedit"* ]]; then
   env WINEARCH="${WINEARCH}" WINEPREFIX="${WINEPREFIX}" "$@"
 elif [[ ${WINE_EXE} = *"wineserver"* ]]; then
-env WINEARCH="${WINEARCH}" WINEPREFIX="${WINEPREFIX}" "${WINE_EXE}" "-k"
+  env WINEARCH="${WINEARCH}" WINEPREFIX="${WINEPREFIX}" "${WINE_EXE}" "-k"
 elif [ -e "${WINE_EXE}" ]; then
   launch_app
 else
