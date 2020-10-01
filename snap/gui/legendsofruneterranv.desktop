@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Legends of Runeterra
+Name=Legends of Runeterra (NVIDIA Optimus)
 Comment=
 Exec=legendsofruneterra.legendsofruneterranv
 Icon=${SNAP}/meta/gui/legendsofruneterra.png
