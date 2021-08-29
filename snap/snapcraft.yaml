@@ -10,6 +10,7 @@ architectures:
   - build-on: amd64
     run-on: amd64
 base: core20
+compression: lzo
 
 plugs:
   wine-runtime:
@@ -32,7 +33,7 @@ plugs:
 environment:
   WINEPREFIX: "$SNAP_USER_COMMON/.wine"
   INSTALL_URL: "https://bacon.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.exe"
-  TRICKS: "d3dx9"
+  TRICKS: "d3dx9,dxvk"
   LC_ALL: "C.UTF-8"
 
 apps:
@@ -130,5 +131,6 @@ parts:
       mkdir -p $SNAPCRAFT_PART_INSTALL/wine-runtime
       mkdir -p $SNAPCRAFT_PART_INSTALL/wine-platform
     organize:
+      'lolfix': bin/
       'sommelier': bin/
       'wrapper': bin/

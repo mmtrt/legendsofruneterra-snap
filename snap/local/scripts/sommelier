@@ -204,6 +204,9 @@ function launch_app() {
   # If we don't change into the program directory some assets may not be found
   cd "${WINE_DIR}"
 
+  # pre launching script for login fix
+  # lolfix &
+
   if [ $(basename "$WINE_EXE") = "RiotClientServices.exe" ]; then
     env WINEARCH="${WINEARCH}" WINEPREFIX="${WINEPREFIX}" "${WINE_BASE}/bin/wine64" "${WINE_EXE}" --launch-product=bacon --launch-patchline=live
   else
