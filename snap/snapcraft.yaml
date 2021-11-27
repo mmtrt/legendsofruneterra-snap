@@ -36,6 +36,7 @@ environment:
   TRICKS: "d3dx9"
   LC_ALL: "C.UTF-8"
   NO_AT_BRIDGE: "1"
+  DISABLE_WAYLAND: "1"
 
 layout:
   /usr/share/libdrm:
@@ -57,7 +58,6 @@ apps:
       - opengl
       - process-control
       - audio-playback
-      - wayland
       - x11
       - gtk-3-themes
       - icon-themes
@@ -80,7 +80,6 @@ apps:
       - opengl
       - process-control
       - audio-playback
-      - wayland
       - x11
       - gtk-3-themes
       - icon-themes
@@ -92,7 +91,6 @@ apps:
       - desktop
       - desktop-legacy
       - audio-playback
-      - wayland
       - x11
   winecfg:
     command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/winecfg
@@ -100,7 +98,6 @@ apps:
       - desktop
       - desktop-legacy
       - audio-playback
-      - wayland
       - x11
   wineserver:
     command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/wineserver
@@ -108,7 +105,6 @@ apps:
       - desktop
       - desktop-legacy
       - audio-playback
-      - wayland
       - x11
   winetricks:
     command: bin/sommelier $SNAP/wine-runtime/bin/winetricks
@@ -117,7 +113,6 @@ apps:
       - desktop-legacy
       - network
       - audio-playback
-      - wayland
       - x11
   regedit:
     command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/regedit
@@ -125,7 +120,6 @@ apps:
       - desktop
       - desktop-legacy
       - audio-playback
-      - wayland
       - x11
 
 parts:
