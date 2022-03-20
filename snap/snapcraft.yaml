@@ -121,6 +121,48 @@ apps:
       - desktop-legacy
       - audio-playback
       - x11
+  glxinfo:
+    command: bin/sommelier $SNAP/wine-runtime/usr/bin/glxinfo
+    plugs:
+      - desktop
+      - desktop-legacy
+      - audio-playback
+      - x11
+  glxheads:
+    command: bin/sommelier $SNAP/wine-runtime/usr/bin/glxheads
+    plugs:
+      - desktop
+      - desktop-legacy
+      - audio-playback
+      - x11
+  vulkaninfo:
+    command: bin/sommelier $SNAP/wine-runtime/usr/bin/vulkaninfo
+    plugs:
+      - desktop
+      - desktop-legacy
+      - audio-playback
+      - x11
+  vkcube:
+    command: bin/sommelier $SNAP/wine-runtime/usr/bin/vkcube
+    environment:
+      VK_INSTANCE_LAYERS: "VK_LAYER_MESA_overlay"
+    plugs:
+      - desktop
+      - desktop-legacy
+      - audio-playback
+      - x11
+  vkcube-nv:
+    command: bin/sommelier $SNAP/wine-runtime/usr/bin/vkcube
+    environment:
+      __NV_PRIME_RENDER_OFFLOAD: "1"
+      __GLX_VENDOR_LIBRARY_NAME: "nvidia"
+      __VK_LAYER_NV_optimus: "NVIDIA_only"
+      VK_INSTANCE_LAYERS: "VK_LAYER_MESA_overlay"
+    plugs:
+      - desktop
+      - desktop-legacy
+      - audio-playback
+      - x11
 
 parts:
   legendsofruneterra:
