@@ -32,7 +32,7 @@ plugs:
 
 environment:
   WINEPREFIX: "$SNAP_USER_COMMON/.wine"
-  INSTALL_URL: "https://bacon.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.exe"
+  INSTALL_URL: "https://bacon.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.live.americas.exe"
   TRICKS: "d3dx9"
   LC_ALL: "C.UTF-8"
   NO_AT_BRIDGE: "1"
