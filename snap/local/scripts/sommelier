@@ -183,17 +183,17 @@ notify-send --icon "${SNAP}/meta/gui/legendsofruneterra.png" --expire-time=15000
   action=$(yad --width 400 --entry --title "Legends of Runeterra" \
       --center \
       --button="Install:0" --button="Exit:1" \
-      --text "Select Game Installer | DXVK" \
+      --text "Select Game Installer" \
       --entry-text \
-      "INSTALLER" "DXVK_S - Installs dxvk stable [USE IT OWN UR RISK]" "DXVK_M - Installs dxvk master [USE IT OWN UR RISK]")
+      "INSTALLER")
   ret=$?
 
   [[ $ret -eq 1 ]] && exit 0
 
   case $action in
       INSTALLER*) cmd=$(install_game) ;;
-      DXVK_S*) cmd=$(install_dxvk_stable) ;;
-      DXVK_M*) cmd=$(install_dxvk_master) ;;
+#       DXVK_S*) cmd=$(install_dxvk_stable) ;;
+#       DXVK_M*) cmd=$(install_dxvk_master) ;;
       *) exit 1 ;;
   esac
 
