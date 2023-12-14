@@ -13,14 +13,14 @@ base: core20
 compression: lzo
 
 plugs:
-  wine-runtime:
+  wine-runtime-c20:
     interface: content
     target: $SNAP/wine-runtime
-    default-provider: wine-platform-runtime
-  wine-5-staging:
+    default-provider: wine-platform-runtime-core20
+  wine-7-staging:
     interface: content
     target: $SNAP/wine-platform
-    default-provider: wine-platform-5-staging
+    default-provider: wine-platform-7-staging-core20
   gtk-3-themes:
     default-provider: gtk-common-themes
     interface: content
@@ -33,11 +33,13 @@ plugs:
 environment:
   WINEPREFIX: "$SNAP_USER_COMMON/.wine"
   INSTALL_URL: "https://bacon.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.live.americas.exe"
-  TRICKS: "d3dx9 dxvk194"
+  TRICKS: "dxvk"
   LC_ALL: "C.UTF-8"
   NO_AT_BRIDGE: "1"
   DISABLE_WAYLAND: "1"
   SYSTEM_WGETRC: $SNAP/wine-runtime/etc/wgetrc
+  WP: $SNAP/wine-platform
+  WPR: $SNAP/wine-runtime
 
 layout:
   /usr/share/libdrm:
@@ -62,14 +64,15 @@ apps:
       - x11
       - gtk-3-themes
       - icon-themes
-      - wine-runtime
-      - wine-5-staging
+      - wine-runtime-c20
+      - wine-7-staging
   legendsofruneterranv:
     command: bin/wrapper
     environment:
       __NV_PRIME_RENDER_OFFLOAD: "1"
       __GLX_VENDOR_LIBRARY_NAME: "nvidia"
       __VK_LAYER_NV_optimus: "NVIDIA_only"
+      VK_ICD_FILENAMES: "/var/lib/snapd/lib/vulkan/icd.d/nvidia_icd.json"
     plugs:
       - desktop
       - desktop-legacy
@@ -84,8 +87,15 @@ apps:
       - x11
       - gtk-3-themes
       - icon-themes
-      - wine-runtime
-      - wine-5-staging
+      - wine-runtime-c20
+      - wine-7-staging
+  install:
+    command: bin/sommelier install
+    plugs:
+      - desktop
+      - desktop-legacy
+      - audio-playback
+      - x11
   wineboot:
     command: bin/sommelier $SNAP/wine-platform/wine-staging/bin/wineboot
     plugs:
@@ -158,6 +168,7 @@ apps:
       __NV_PRIME_RENDER_OFFLOAD: "1"
       __GLX_VENDOR_LIBRARY_NAME: "nvidia"
       __VK_LAYER_NV_optimus: "NVIDIA_only"
+      VK_ICD_FILENAMES: "/var/lib/snapd/lib/vulkan/icd.d/nvidia_icd.json"
       VK_INSTANCE_LAYERS: "VK_LAYER_MESA_overlay"
     plugs:
       - desktop
